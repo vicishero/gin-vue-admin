@@ -3,6 +3,7 @@
 /node_modules
 /package.json
 /package-lock.json
+.mcp.json
 /app/node_modules
 /app/dist
 
