@@ -1,0 +1,50 @@
+{
+  "app": {
+    "name": "Chirp",
+    "slogan": "今の気持ちを伝えよう"
+  },
+  "nav": {
+    "home": "ホーム",
+    "search": "検索",
+    "notifications": "通知",
+    "profile": "プロフィール"
+  },
+  "home": {
+    "title": "ホーム",
+    "placeholder": "いまどうしてる？",
+    "chirp": "チルプ"
+  },
+  "search": {
+    "title": "検索",
+    "placeholder": "Chirpを検索",
+    "trends": "あなたにおすすめのトレンド",
+    "posts": "件の投稿"
+  },
+  "notifications": {
+    "title": "通知",
+    "followedYou": "があなたをフォローしました",
+    "likedYourChirp": "があなたのChirpにいいねしました",
+    "repliedYourChirp": "があなたのChirpに返信しました",
+    "repostedYourChirp": "があなたのChirpをリポストしました",
+    "andOthersLiked": "と他{{count}}人があなたのChirpにいいねしました"
+  },
+  "profile": {
+    "title": "プロフィール",
+    "chirps": "投稿",
+    "replies": "返信",
+    "likes": "いいね",
+    "editProfile": "プロフィール編集",
+    "following": "フォロー中",
+    "followers": "フォロワー",
+    "joined": "参加日"
+  },
+  "wallet": {
+    "connect": "ウォレット接続",
+    "disconnect": "切断",
+    "connecting": "接続中...",
+    "noWallet": "MetaMaskまたはBSC対応ウォレットをインストールしてください"
+  },
+  "lang": {
+    "switch": "言語"
+  }
+}

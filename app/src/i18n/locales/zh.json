@@ -1,0 +1,50 @@
+{
+  "app": {
+    "name": "Chirp",
+    "slogan": "說出你的心聲"
+  },
+  "nav": {
+    "home": "首頁",
+    "search": "搜尋",
+    "notifications": "通知",
+    "profile": "個人資料"
+  },
+  "home": {
+    "title": "首頁",
+    "placeholder": "發生了什麼事？",
+    "chirp": "發文"
+  },
+  "search": {
+    "title": "搜尋",
+    "placeholder": "搜尋 Chirp",
+    "trends": "為你推薦的趨勢",
+    "posts": "則貼文"
+  },
+  "notifications": {
+    "title": "通知",
+    "followedYou": "追蹤了你",
+    "likedYourChirp": "喜歡你的 Chirp",
+    "repliedYourChirp": "回覆了你的 Chirp",
+    "repostedYourChirp": "轉發了你的 Chirp",
+    "andOthersLiked": "和其他 {{count}} 人喜歡你的 Chirp"
+  },
+  "profile": {
+    "title": "個人資料",
+    "chirps": "貼文",
+    "replies": "回覆",
+    "likes": "喜歡",
+    "editProfile": "編輯個人資料",
+    "following": "跟隨中",
+    "followers": "跟隨者",
+    "joined": "加入時間"
+  },
+  "wallet": {
+    "connect": "連接錢包",
+    "disconnect": "斷開連接",
+    "connecting": "連接中...",
+    "noWallet": "請安裝 MetaMask 或其他支援 BSC 的錢包"
+  },
+  "lang": {
+    "switch": "語言"
+  }
+}

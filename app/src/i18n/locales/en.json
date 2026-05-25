@@ -1,0 +1,50 @@
+{
+  "app": {
+    "name": "Chirp",
+    "slogan": "Say what's on your mind"
+  },
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "notifications": "Notifications",
+    "profile": "Profile"
+  },
+  "home": {
+    "title": "Home",
+    "placeholder": "What's happening?",
+    "chirp": "Chirp"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search Chirp",
+    "trends": "Trends for you",
+    "posts": "posts"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "followedYou": "followed you",
+    "likedYourChirp": "liked your Chirp",
+    "repliedYourChirp": "replied to your Chirp",
+    "repostedYourChirp": "reposted your Chirp",
+    "andOthersLiked": "and {{count}} others liked your Chirp"
+  },
+  "profile": {
+    "title": "Profile",
+    "chirps": "Chirps",
+    "replies": "Replies",
+    "likes": "Likes",
+    "editProfile": "Edit profile",
+    "following": "Following",
+    "followers": "Followers",
+    "joined": "Joined"
+  },
+  "wallet": {
+    "connect": "Connect Wallet",
+    "disconnect": "Disconnect",
+    "connecting": "Connecting...",
+    "noWallet": "Please install MetaMask or a BSC-compatible wallet"
+  },
+  "lang": {
+    "switch": "Language"
+  }
+}

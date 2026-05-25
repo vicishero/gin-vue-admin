@@ -1,5 +1,10 @@
 /web/node_modules
 /web/dist
+/node_modules
+/package.json
+/package-lock.json
+/app/node_modules
+/app/dist
 
 .DS_Store
 
