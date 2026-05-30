@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import { ethers } from 'ethers';
 
 const BSC_MAINNET = {
   chainId: '0x38',
@@ -12,10 +13,22 @@ export function useWallet() {
   const [account, setAccount] = useState(null);
   const [connecting, setConnecting] = useState(false);
 
+  const getSigner = useCallback(async () => {
+    if (!window.ethereum) return null;
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    return provider.getSigner();
+  }, []);
+
+  const signMessage = useCallback(async (message) => {
+    const signer = await getSigner();
+    if (!signer) throw new Error('Wallet not connected');
+    return signer.signMessage(message);
+  }, [getSigner]);
+
   const connectWallet = useCallback(async () => {
     if (!window.ethereum) {
       alert('Please install MetaMask or a BSC-compatible wallet');
-      return;
+      return null;
     }
 
     setConnecting(true);
@@ -24,7 +37,6 @@ export function useWallet() {
         method: 'eth_requestAccounts',
       });
 
-      // Switch to BSC mainnet
       try {
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
@@ -41,8 +53,10 @@ export function useWallet() {
 
       setAccount(accounts[0]);
       localStorage.setItem('walletAccount', accounts[0]);
+      return accounts[0];
     } catch (err) {
       console.error('Wallet connection failed:', err);
+      return null;
     } finally {
       setConnecting(false);
     }
@@ -74,5 +88,5 @@ export function useWallet() {
     }
   }, [disconnectWallet]);
 
-  return { account, connecting, connectWallet, disconnectWallet };
+  return { account, connecting, connectWallet, disconnectWallet, signMessage };
 }

@@ -48,4 +48,5 @@ func initializeSystem() {
 	if global.GVA_DB != nil {
 		initialize.RegisterTables() // 初始化表
 	}
+	initialize.BscSync() // 启动BSC同步引擎
 }

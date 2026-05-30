@@ -43,6 +43,7 @@ func Routers() *gin.Engine {
 
 	systemRouter := router.RouterGroupApp.System
 	exampleRouter := router.RouterGroupApp.Example
+	appRouter := router.RouterGroupApp.App
 	// 如果想要不使用nginx代理前端网页，可以修改 web/.env.production 下的
 	// VUE_APP_BASE_API = /
 	// VUE_APP_BASE_PATH = http://localhost
@@ -53,10 +54,9 @@ func Routers() *gin.Engine {
 
 	Router.StaticFS(global.GVA_CONFIG.Local.StorePath, justFilesFilesystem{http.Dir(global.GVA_CONFIG.Local.StorePath)})
 	// Router.Use(middleware.LoadTls())  // 如果需要使用https 请打开此中间件 然后前往 core/server.go 将启动模式 更变为 Router.RunTLS("端口","你的cre/pem文件","你的key文件")
-	// 跨域，如需跨域可以打开下面的注释
-	// Router.Use(middleware.Cors()) // 直接放行全部跨域请求
-	// Router.Use(middleware.CorsByRules()) // 按照配置的规则放行跨域请求
-	// global.GVA_LOG.Info("use middleware cors")
+	// 跨域
+	Router.Use(middleware.CorsByRules()) // 按照配置的规则放行跨域请求
+	global.GVA_LOG.Info("use middleware cors")
 	docs.SwaggerInfo.BasePath = global.GVA_CONFIG.System.RouterPrefix
 	Router.GET(global.GVA_CONFIG.System.RouterPrefix+"/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	global.GVA_LOG.Info("register swagger handler")
@@ -75,6 +75,10 @@ func Routers() *gin.Engine {
 	}
 	{
 		systemRouter.InitBaseRouter(PublicGroup) // 注册基础功能路由 不做鉴权
+		appRouter.InitH5Router(PublicGroup)      // H5用户端路由 (自带H5Auth中间件)
+		appRouter.InitH5PostRouter(PublicGroup)  // H5帖子路由
+	appRouter.InitH5CommentRouter(PublicGroup) // H5评论+点赞路由
+	appRouter.InitH5SocialRouter(PublicGroup)  // H5关注+收藏+话题+通知+上传路由
 	}
 
 	{
@@ -92,9 +96,13 @@ func Routers() *gin.Engine {
 		systemRouter.InitAuthorityBtnRouterRouter(PrivateGroup)             // 按钮权限管理
 		systemRouter.InitSysExportTemplateRouter(PrivateGroup, PublicGroup) // 导出模板
 		systemRouter.InitSysParamsRouter(PrivateGroup, PublicGroup)         // 参数管理
+		systemRouter.InitBscContractConfigRouter(PrivateGroup, PublicGroup) // BSC链上管理
+		systemRouter.InitBscSyncInfoRouter(PrivateGroup, PublicGroup)     // BSC同步管理
+		systemRouter.InitBscSyncedEventRouter(PrivateGroup, PublicGroup)  // BSC事件管理
 		systemRouter.InitSysErrorRouter(PrivateGroup, PublicGroup)          // 错误日志
 		systemRouter.InitLoginLogRouter(PrivateGroup)                       // 登录日志
 		systemRouter.InitApiTokenRouter(PrivateGroup)                       // apiToken签发
+			systemRouter.InitH5AdminRouter(PrivateGroup)                        // H5运营管理
 		exampleRouter.InitCustomerRouter(PrivateGroup)                      // 客户路由
 		exampleRouter.InitFileUploadAndDownloadRouter(PrivateGroup)         // 文件上传下载功能路由
 		exampleRouter.InitAttachmentCategoryRouterRouter(PrivateGroup)      // 文件上传下载分类
@@ -107,6 +115,7 @@ func Routers() *gin.Engine {
 	initBizRouter(PrivateGroup, PublicGroup)
 
 	global.GVA_ROUTERS = Router.Routes()
+	seedH5MenusIfReady()
 
 	global.GVA_LOG.Info("router register success")
 	return Router

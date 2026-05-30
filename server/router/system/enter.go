@@ -23,6 +23,10 @@ type RouterGroup struct {
 	LoginLogRouter
 	ApiTokenRouter
 	SkillsRouter
+	BscContractConfigRouter
+	BscSyncInfoRouter
+	BscSyncedEventRouter
+	H5AdminRouter
 }
 
 var (
@@ -48,4 +52,8 @@ var (
 	sysErrorApi          = api.ApiGroupApp.SystemApiGroup.SysErrorApi
 	skillsApi            = api.ApiGroupApp.SystemApiGroup.SkillsApi
 	aiWorkflowSessionApi = api.ApiGroupApp.SystemApiGroup.AIWorkflowSessionApi
+	bscApi                = api.ApiGroupApp.SystemApiGroup.BscContractConfigApi
+	bscSyncInfoApi        = api.ApiGroupApp.SystemApiGroup.BscSyncInfoApi
+	bscSyncedEventApi     = api.ApiGroupApp.SystemApiGroup.BscSyncedEventApi
+	h5AdminApi            = api.ApiGroupApp.SystemApiGroup.H5AdminApi
 )

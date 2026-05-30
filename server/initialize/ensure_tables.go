@@ -67,6 +67,11 @@ func (e *ensureTables) MigrateTable(ctx context.Context) (context.Context, error
 		example.ExaAttachmentCategory{},
 
 		model.Info{},
+
+		sysModel.SysBscContractConfig{},
+		sysModel.SysBscContractEvent{},
+		sysModel.SysBscSyncedEvent{},
+		sysModel.SysBscSyncLog{},
 	}
 	for _, t := range tables {
 		_ = db.AutoMigrate(&t)
@@ -109,6 +114,11 @@ func (e *ensureTables) TableCreated(ctx context.Context) bool {
 		example.ExaAttachmentCategory{},
 
 		model.Info{},
+
+		sysModel.SysBscContractConfig{},
+		sysModel.SysBscContractEvent{},
+		sysModel.SysBscSyncedEvent{},
+		sysModel.SysBscSyncLog{},
 	}
 	yes := true
 	for _, t := range tables {

@@ -6,13 +6,27 @@
   "nav": {
     "home": "首頁",
     "search": "搜尋",
-    "notifications": "通知",
-    "profile": "個人資料"
+    "compose": "發布",
+    "notifications": "訊息",
+    "profile": "我的"
   },
   "home": {
     "title": "首頁",
     "placeholder": "發生了什麼事？",
-    "chirp": "發文"
+    "chirp": "發文",
+    "newest": "最新",
+    "hot": "熱門",
+    "following": "跟隨中",
+    "empty": "尚無貼文，追蹤一些人來看到他們的 Chirp！",
+    "loadMore": "載入更多"
+  },
+  "post": {
+    "title": "貼文",
+    "reply": "回覆",
+    "replies": "回覆",
+    "replyPlaceholder": "寫下你的回覆...",
+    "commentPlaceholder": "寫下你的評論...",
+    "comment": "評論"
   },
   "search": {
     "title": "搜尋",
@@ -36,7 +50,8 @@
     "editProfile": "編輯個人資料",
     "following": "跟隨中",
     "followers": "跟隨者",
-    "joined": "加入時間"
+    "joined": "加入時間",
+    "noChirpsYet": "尚無貼文"
   },
   "wallet": {
     "connect": "連接錢包",

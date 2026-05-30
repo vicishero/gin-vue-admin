@@ -1,24 +1,38 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
-const TRENDING = [
-  { id: 1, category: 'Technology · Trending', topic: '#ReactJS', posts: '124K' },
-  { id: 2, category: 'Technology · Trending', topic: '#TypeScript', posts: '89K' },
-  { id: 3, category: 'Gaming · Trending', topic: '#EldenRing', posts: '56K' },
-  { id: 4, category: 'Music · Trending', topic: '#NewMusic', posts: '312K' },
-  { id: 5, category: 'Sports · Trending', topic: '#NBAFinals', posts: '198K' },
-  { id: 6, category: 'Entertainment', topic: '#Oscars2026', posts: '245K' },
-  { id: 7, category: 'Technology', topic: '#OpenSource', posts: '67K' },
-  { id: 8, category: 'Design', topic: '#UIDesign', posts: '43K' },
-];
+import { useNavigate } from 'react-router-dom';
+import { getTags, getFeed } from '../utils/api';
 
 export default function Search() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
+  const [tags, setTags] = useState([]);
+  const [tagPosts, setTagPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getTags()
+      .then((res) => setTags(res.data || []))
+      .catch(() => {});
+  }, []);
+
+  const handleTagClick = async (tag) => {
+    setLoading(true);
+    setQuery(tag);
+    try {
+      const res = await getFeed({ tag, page: 1, pageSize: 20 });
+      setTagPosts(res.data.list || []);
+    } catch {
+      setTagPosts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filtered = query
-    ? TRENDING.filter((item) => item.topic.toLowerCase().includes(query.toLowerCase()))
-    : TRENDING;
+    ? tags.filter((item) => item.tag.toLowerCase().includes(query.toLowerCase()))
+    : tags;
 
   return (
     <div>
@@ -33,24 +47,57 @@ export default function Search() {
           type="text"
           placeholder={t('search.placeholder')}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setTagPosts([]);
+          }}
           style={styles.input}
         />
       </div>
 
-      {!query && (
-        <div style={styles.sectionHeader}>
-          <h3 style={styles.sectionTitle}>{t('search.trends')}</h3>
-        </div>
+      {!tagPosts.length && !loading && (
+        <>
+          <div style={styles.sectionHeader}>
+            <h3 style={styles.sectionTitle}>{t('search.trends')}</h3>
+          </div>
+          {filtered.map((item) => (
+            <div
+              key={item.ID}
+              style={styles.trendItem}
+              onClick={() => handleTagClick(item.tag)}
+            >
+              <p style={styles.tagHash}>#{item.tag}</p>
+              <p style={styles.posts}>{item.quoteNum} {t('search.posts')}</p>
+            </div>
+          ))}
+        </>
       )}
 
-      {filtered.map((item) => (
-        <div key={item.id} style={styles.trendItem}>
-          <p style={styles.category}>{item.category}</p>
-          <p style={styles.topic}>{item.topic}</p>
-          <p style={styles.posts}>{item.posts} {t('search.posts')}</p>
+      {loading && <p style={styles.loading}>Loading...</p>}
+
+      {tagPosts.length > 0 && (
+        <div>
+          <div style={styles.sectionHeader}>
+            <h3 style={styles.sectionTitle}>#{query}</h3>
+          </div>
+          {tagPosts.map((post) => (
+            <div
+              key={post.ID}
+              style={styles.postItem}
+              onClick={() => navigate(`/post/${post.ID}`)}
+            >
+              <p style={styles.postUser}>@{post.user?.username || '...'}</p>
+              <p style={styles.postText}>
+                {(post.contents || [])
+                  .filter((c) => c.type === 2)
+                  .map((c) => c.content)
+                  .join(' ')
+                  .slice(0, 140)}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }
@@ -105,12 +152,7 @@ const styles = {
     borderBottom: '1px solid #eff3f4',
     cursor: 'pointer',
   },
-  category: {
-    fontSize: 13,
-    color: '#536471',
-    marginBottom: 2,
-  },
-  topic: {
+  tagHash: {
     fontSize: 15,
     fontWeight: 700,
     color: '#0f1419',
@@ -119,5 +161,24 @@ const styles = {
   posts: {
     fontSize: 13,
     color: '#536471',
+  },
+  loading: {
+    textAlign: 'center',
+    color: '#536471',
+    padding: '32px 16px',
+  },
+  postItem: {
+    padding: '12px 16px',
+    borderBottom: '1px solid #eff3f4',
+    cursor: 'pointer',
+  },
+  postUser: {
+    fontSize: 13,
+    color: '#536471',
+    marginBottom: 4,
+  },
+  postText: {
+    fontSize: 15,
+    color: '#0f1419',
   },
 };

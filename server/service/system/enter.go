@@ -27,4 +27,9 @@ type ServiceGroup struct {
 	SysErrorService
 	LoginLogService
 	ApiTokenService
+	BscContractConfigService
+	BscSyncEngineService
+	BscSyncInfoService
+	BscSyncedEventService
+	H5AdminService
 }

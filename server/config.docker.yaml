@@ -280,3 +280,7 @@ mcp:
     version: v1.0.0
     addr: 8889
     separate: false
+bsc:
+    default-rpc-url: "https://bsc-dataseed.binance.org"
+    chain-id: 56
+    sync-interval-seconds: 1

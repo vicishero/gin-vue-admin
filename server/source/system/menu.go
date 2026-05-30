@@ -62,6 +62,7 @@ func (i *initMenu) InitializeData(ctx context.Context) (next context.Context, er
 		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "https://www.gin-vue-admin.com", Name: "https://www.gin-vue-admin.com", Component: "/", Sort: 0, Meta: Meta{Title: "官方网站", Icon: "customer-gva"}},
 		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "state", Name: "state", Component: "view/system/state.vue", Sort: 8, Meta: Meta{Title: "服务器状态", Icon: "cloudy"}},
 		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "plugin", Name: "plugin", Component: "view/routerHolder.vue", Sort: 6, Meta: Meta{Title: "插件系统", Icon: "cherry"}},
+		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "onchain", Name: "onchain", Component: "view/routerHolder.vue", Sort: 10, Meta: Meta{Title: "链上管理", Icon: "coin"}},
 	}
 
 	// 先创建父级菜单（ParentId = 0 的菜单）
@@ -114,6 +115,11 @@ func (i *initMenu) InitializeData(ctx context.Context) (next context.Context, er
 		{MenuLevel: 1, Hidden: false, ParentId: menuNameMap["plugin"], Path: "pubPlug", Name: "pubPlug", Component: "view/systemTools/pubPlug/pubPlug.vue", Sort: 3, Meta: Meta{Title: "打包插件", Icon: "files"}},
 		{MenuLevel: 1, Hidden: false, ParentId: menuNameMap["plugin"], Path: "plugin-email", Name: "plugin-email", Component: "plugin/email/view/index.vue", Sort: 4, Meta: Meta{Title: "邮件插件", Icon: "message"}},
 		{MenuLevel: 1, Hidden: false, ParentId: menuNameMap["plugin"], Path: "anInfo", Name: "anInfo", Component: "plugin/announcement/view/info.vue", Sort: 5, Meta: Meta{Title: "公告管理[示例]", Icon: "scaleToOriginal"}},
+
+		// onchain子菜单
+		{MenuLevel: 1, Hidden: false, ParentId: menuNameMap["onchain"], Path: "syncInfo", Name: "syncInfo", Component: "view/superAdmin/onchain/syncInfo.vue", Sort: 0, Meta: Meta{Title: "同步管理", Icon: "setting"}},
+		{MenuLevel: 1, Hidden: false, ParentId: menuNameMap["onchain"], Path: "contractEvents", Name: "contractEvents", Component: "view/superAdmin/onchain/contractEvents.vue", Sort: 1, Meta: Meta{Title: "合约管理", Icon: "list"}},
+		{MenuLevel: 1, Hidden: false, ParentId: menuNameMap["onchain"], Path: "syncedEvents", Name: "syncedEvents", Component: "view/superAdmin/onchain/syncedEvents.vue", Sort: 2, Meta: Meta{Title: "事件管理", Icon: "view"}},
 	}
 
 	// 创建子菜单

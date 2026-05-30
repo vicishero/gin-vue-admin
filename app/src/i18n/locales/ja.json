@@ -6,13 +6,27 @@
   "nav": {
     "home": "ホーム",
     "search": "検索",
-    "notifications": "通知",
-    "profile": "プロフィール"
+    "compose": "投稿",
+    "notifications": "メッセージ",
+    "profile": "マイ"
   },
   "home": {
     "title": "ホーム",
     "placeholder": "いまどうしてる？",
-    "chirp": "チルプ"
+    "chirp": "チルプ",
+    "newest": "最新",
+    "hot": "人気",
+    "following": "フォロー中",
+    "empty": "投稿がありません。誰かをフォローしてチルプを見よう！",
+    "loadMore": "もっと見る"
+  },
+  "post": {
+    "title": "投稿",
+    "reply": "返信",
+    "replies": "返信",
+    "replyPlaceholder": "返信を書く...",
+    "commentPlaceholder": "コメントを書く...",
+    "comment": "コメント"
   },
   "search": {
     "title": "検索",
@@ -36,7 +50,8 @@
     "editProfile": "プロフィール編集",
     "following": "フォロー中",
     "followers": "フォロワー",
-    "joined": "参加日"
+    "joined": "参加日",
+    "noChirpsYet": "まだ投稿がありません"
   },
   "wallet": {
     "connect": "ウォレット接続",

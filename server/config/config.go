@@ -35,6 +35,9 @@ type Server struct {
 	// 跨域配置
 	Cors CORS `mapstructure:"cors" json:"cors" yaml:"cors"`
 
+	// BSC链上同步配置
+	Bsc Bsc `mapstructure:"bsc" json:"bsc" yaml:"bsc"`
+
 	// MCP配置
 	MCP MCP `mapstructure:"mcp" json:"mcp" yaml:"mcp"`
 }

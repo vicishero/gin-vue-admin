@@ -6,13 +6,27 @@
   "nav": {
     "home": "Home",
     "search": "Search",
-    "notifications": "Notifications",
-    "profile": "Profile"
+    "compose": "Compose",
+    "notifications": "Messages",
+    "profile": "My"
   },
   "home": {
     "title": "Home",
     "placeholder": "What's happening?",
-    "chirp": "Chirp"
+    "chirp": "Chirp",
+    "newest": "Newest",
+    "hot": "Hot",
+    "following": "Following",
+    "empty": "No posts yet. Follow some people to see their chirps!",
+    "loadMore": "Load more"
+  },
+  "post": {
+    "title": "Chirp",
+    "reply": "Reply",
+    "replies": "Replies",
+    "replyPlaceholder": "Write a reply...",
+    "commentPlaceholder": "Write a comment...",
+    "comment": "Comment"
   },
   "search": {
     "title": "Search",
@@ -36,7 +50,8 @@
     "editProfile": "Edit profile",
     "following": "Following",
     "followers": "Followers",
-    "joined": "Joined"
+    "joined": "Joined",
+    "noChirpsYet": "No chirps yet"
   },
   "wallet": {
     "connect": "Connect Wallet",

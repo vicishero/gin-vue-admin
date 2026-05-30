@@ -272,10 +272,10 @@ disk-list:
 cors:
     mode: strict-whitelist # 放行模式: allow-all, 放行全部; whitelist, 白名单模式, 来自白名单内域名的请求添加 cors 头; strict-whitelist 严格白名单模式, 白名单外的请求一律拒绝
     whitelist:
-        - allow-origin: example1.com
+        - allow-origin: http://localhost:5173
           allow-headers: Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Token,X-User-Id
-          allow-methods: POST, GET
-          expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
+          allow-methods: POST, GET, PUT, DELETE, OPTIONS
+          expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type, new-token
           allow-credentials: true # 布尔值
         - allow-origin: example2.com
           allow-headers: content-type
@@ -287,3 +287,7 @@ mcp:
     version: v1.0.0
     addr: 8889
     separate: false
+bsc:
+    default-rpc-url: "https://bsc-dataseed.binance.org"
+    chain-id: 56
+    sync-interval-seconds: 1

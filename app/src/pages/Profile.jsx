@@ -1,41 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../contexts/AuthContext';
+import { getProfile } from '../utils/api';
 
-const CURRENT_USER = {
-  name: 'You',
-  handle: '@you',
-  bio: 'Building things for the web. Chirping about tech, design, and life.',
-  joined: 'March 2026',
-  following: 142,
-  followers: 389,
-};
-
-const MY_TWEETS = [
-  {
-    id: 101,
-    content: 'Just started using Chirp — this platform is going to be huge! 🔥',
-    time: '2d',
-    likes: 24,
-    comments: 3,
-  },
-  {
-    id: 102,
-    content: 'Working on a new React project. Vite makes everything so fast.',
-    time: '4d',
-    likes: 18,
-    comments: 5,
-  },
-  {
-    id: 103,
-    content: 'Beautiful morning, perfect day to write some code.',
-    time: '6d',
-    likes: 42,
-    comments: 7,
-  },
-];
-
-export default function Profile() {
+export default function ProfilePage() {
   const { t } = useTranslation();
+  const { user: authUser, isAuthenticated, refreshUser } = useAuth();
   const [activeTab, setActiveTab] = useState('chirps');
 
   const tabs = [
@@ -44,37 +14,44 @@ export default function Profile() {
     { key: 'likes', label: t('profile.likes') },
   ];
 
+  const displayName = authUser?.nickname || 'You';
+  const handle = authUser?.username || '@you';
+  const bio = authUser?.bio || '';
+  const avatarUrl = authUser?.avatar || 'https://api.dicebear.com/9.x/thumbs/svg?seed=Felix';
+  const joinedDate = authUser?.createdAt
+    ? new Date(authUser.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+    : 'March 2026';
+  const following = authUser?.followingCount || 0;
+  const followers = authUser?.followerCount || 0;
+  const postCount = authUser?.postCount || 0;
+
   return (
     <div>
       <header style={styles.header}>
-        <h2 style={styles.title}>{CURRENT_USER.name}</h2>
-        <p style={styles.tweetCount}>3 {t('profile.chirps')}</p>
+        <h2 style={styles.title}>{displayName}</h2>
+        <p style={styles.tweetCount}>{postCount} {t('profile.chirps')}</p>
       </header>
 
       <div style={styles.banner} />
 
       <div style={styles.profile}>
-        <img
-          src="https://api.dicebear.com/9.x/thumbs/svg?seed=Felix"
-          alt=""
-          style={styles.avatar}
-        />
+        <img src={avatarUrl} alt="" style={styles.avatar} />
         <div style={styles.actions}>
           <button style={styles.editBtn}>{t('profile.editProfile')}</button>
         </div>
         <div style={styles.info}>
-          <h3 style={styles.displayName}>{CURRENT_USER.name}</h3>
-          <p style={styles.handle}>{CURRENT_USER.handle}</p>
-          <p style={styles.bio}>{CURRENT_USER.bio}</p>
+          <h3 style={styles.displayName}>{displayName}</h3>
+          <p style={styles.handle}>{handle}</p>
+          {bio ? <p style={styles.bio}>{bio}</p> : null}
           <div style={styles.meta}>
-            <span style={styles.metaItem}>📅 {t('profile.joined')} {CURRENT_USER.joined}</span>
+            <span style={styles.metaItem}>📅 {t('profile.joined')} {joinedDate}</span>
           </div>
           <div style={styles.followRow}>
             <span style={styles.follow}>
-              <strong>{CURRENT_USER.following}</strong> {t('profile.following')}
+              <strong>{following}</strong> {t('profile.following')}
             </span>
             <span style={styles.follow}>
-              <strong>{CURRENT_USER.followers}</strong> {t('profile.followers')}
+              <strong>{followers}</strong> {t('profile.followers')}
             </span>
           </div>
         </div>
@@ -97,21 +74,13 @@ export default function Profile() {
         ))}
       </div>
 
-      {MY_TWEETS.map((tweet) => (
-        <div key={tweet.id} style={styles.tweet}>
-          <div style={styles.tweetHeader}>
-            <span style={styles.tweetName}>{CURRENT_USER.name}</span>
-            <span style={styles.tweetHandle}>{CURRENT_USER.handle}</span>
-            <span style={styles.tweetDot}>·</span>
-            <span style={styles.tweetTime}>{tweet.time}</span>
-          </div>
-          <p style={styles.tweetContent}>{tweet.content}</p>
-          <div style={styles.tweetActions}>
-            <span style={styles.tweetAction}>💬 {tweet.comments}</span>
-            <span style={styles.tweetAction}>❤️ {tweet.likes}</span>
-          </div>
-        </div>
-      ))}
+      <div style={styles.emptyTab}>
+        {isAuthenticated ? (
+          <p style={styles.emptyText}>{t('profile.noChirpsYet')}</p>
+        ) : (
+          <p style={styles.emptyText}>{t('wallet.connect')}</p>
+        )}
+      </div>
     </div>
   );
 }
@@ -216,42 +185,12 @@ const styles = {
     border: 'none',
     transition: 'color 0.15s',
   },
-  tweet: {
-    padding: '16px',
-    borderBottom: '1px solid #eff3f4',
+  emptyTab: {
+    padding: '32px 16px',
+    textAlign: 'center',
   },
-  tweetHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 4,
-    marginBottom: 4,
-    fontSize: 14,
-  },
-  tweetName: {
-    fontWeight: 700,
-    color: '#0f1419',
-  },
-  tweetHandle: {
+  emptyText: {
     color: '#536471',
-  },
-  tweetDot: {
-    color: '#536471',
-  },
-  tweetTime: {
-    color: '#536471',
-  },
-  tweetContent: {
     fontSize: 15,
-    lineHeight: 1.5,
-    color: '#0f1419',
-    marginBottom: 10,
-  },
-  tweetActions: {
-    display: 'flex',
-    gap: 24,
-  },
-  tweetAction: {
-    fontSize: 14,
-    color: '#536471',
   },
 };

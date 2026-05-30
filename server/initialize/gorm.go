@@ -71,6 +71,24 @@ func RegisterTables() {
 		example.ExaFileChunk{},
 		example.ExaFileUploadAndDownload{},
 		example.ExaAttachmentCategory{},
+
+		system.SysBscContractConfig{},
+		system.SysBscContractEvent{},
+		system.SysBscSyncedEvent{},
+		system.SysBscSyncLog{},
+		system.SysBscSyncInfo{},
+
+		system.UserH5User{},
+		system.UserWalletNonce{},
+		system.UserPost{},
+		system.UserPostContent{},
+		system.UserPostStar{},
+		system.UserComment{},
+		system.UserCommentReply{},
+		system.UserFollowing{},
+		system.UserPostCollection{},
+		system.UserTag{},
+		system.UserMessage{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

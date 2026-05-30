@@ -27,6 +27,10 @@ type ApiGroup struct {
 	ApiTokenApi
 	SkillsApi
 	AIWorkflowSessionApi
+	BscContractConfigApi
+	BscSyncInfoApi
+	BscSyncedEventApi
+	H5AdminApi
 }
 
 var (
@@ -54,4 +58,8 @@ var (
 	loginLogService          = service.ServiceGroupApp.SystemServiceGroup.LoginLogService
 	apiTokenService          = service.ServiceGroupApp.SystemServiceGroup.ApiTokenService
 	skillsService            = service.ServiceGroupApp.SystemServiceGroup.SkillsService
+	bscContractConfigService      = service.ServiceGroupApp.SystemServiceGroup.BscContractConfigService
+	bscSyncInfoService            = service.ServiceGroupApp.SystemServiceGroup.BscSyncInfoService
+	bscSyncedEventService         = service.ServiceGroupApp.SystemServiceGroup.BscSyncedEventService
+	h5AdminService                = service.ServiceGroupApp.SystemServiceGroup.H5AdminService
 )
